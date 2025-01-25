@@ -39,7 +39,6 @@
             border-radius: 5px;
         }
 
-        /* Main content layout */
         .main-content {
             display: flex;
             justify-content: space-between;
@@ -66,7 +65,6 @@
             color: #555;
         }
 
-        /* User Story Card Styling */
         .user-story-card form input, .user-story-card form textarea {
             width: 100%;
             padding: 0.8rem;
@@ -87,6 +85,14 @@
 
         .user-story-card form button:hover {
             background-color: #e78a8a;
+        }
+
+        .story-display {
+            background: #f0f0f0;
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         footer {
@@ -140,11 +146,11 @@
         </div>
     </div>
 
-    <!-- User Story Submission Card -->
+    <!-- User Story Card -->
     <div class="main-content">
         <div class="card user-story-card">
             <h2>Share Your Story</h2>
-            <form>
+            <form id="story-form">
                 <label for="user-name">Your Name</label>
                 <input type="text" id="user-name" placeholder="Enter your name" required>
                 <label for="user-story">Your Story</label>
@@ -154,8 +160,51 @@
         </div>
     </div>
 
+    <!-- Display Story -->
+    <div class="main-content" id="story-display-container" style="display:none;">
+        <div class="card story-display">
+            <h2>Previous Story</h2>
+            <p id="story-display-text"></p>
+        </div>
+    </div>
+
     <footer>
         <p>&copy; 2025 Your Blog. All rights reserved.</p>
     </footer>
+
+    <script>
+        // Check if a story already exists in localStorage
+        const storedStory = localStorage.getItem('userStory');
+        const storyForm = document.getElementById('story-form');
+        const storyDisplayContainer = document.getElementById('story-display-container');
+        const storyDisplayText = document.getElementById('story-display-text');
+
+        if (storedStory) {
+            // If a story exists, hide the form and display the previous story
+            document.querySelector('.user-story-card').style.display = 'none';
+            storyDisplayContainer.style.display = 'block';
+            storyDisplayText.textContent = storedStory;
+        } else {
+            // Show the form if no story is stored
+            document.querySelector('.user-story-card').style.display = 'block';
+            storyDisplayContainer.style.display = 'none';
+        }
+
+        // Handle the story submission
+        storyForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const userName = document.getElementById('user-name').value;
+            const userStory = document.getElementById('user-story').value;
+
+            // Save the story to localStorage
+            const story = `${userName}: ${userStory}`;
+            localStorage.setItem('userStory', story);
+
+            // Hide the form and display the submitted story
+            document.querySelector('.user-story-card').style.display = 'none';
+            storyDisplayContainer.style.display = 'block';
+            storyDisplayText.textContent = story;
+        });
+    </script>
 </body>
 </html>
