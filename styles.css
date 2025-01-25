@@ -11,6 +11,19 @@ header {
     padding: 1rem 2rem;
     text-align: center;
 }
+.chatbot img{
+        width: 40px;
+    }
+
+.chatbot, .chatbot button{
+    background: white;
+    width:50px;
+    position: fixed;
+    right: 70px;
+    bottom: 30px;
+    border-radius: 20px;
+    border-color: #e95d1d;
+}
 
 nav {
     display: flex;
