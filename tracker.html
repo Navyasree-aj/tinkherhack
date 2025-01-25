@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menstrual Cycle Predictor</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f8f9fa;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 400px;
+      margin: 50px auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 24px;
+      color: #e91e63;
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin: 10px 0 5px;
+      font-weight: bold;
+    }
+
+    input[type="date"], input[type="number"] {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #e91e63;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background-color: #d81b60;
+    }
+
+    .result {
+      margin-top: 20px;
+      padding: 10px;
+      background-color: #fce4ec;
+      border: 1px solid #f8bbd0;
+      border-radius: 4px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Menstrual Cycle Predictor</h1>
+    <form id="cycleForm">
+      <label for="lastPeriod">Date of Last Period:</label>
+      <input type="date" id="lastPeriod" required>
+
+      <label for="cycleLength">Average Cycle Length (in days):</label>
+      <input type="number" id="cycleLength" min="21" max="35" required>
+
+      <button type="button" onclick="predictCycle()">Predict Next Period</button>
+    </form>
+
+    <div id="result" class="result" style="display: none;">
+      <p>Your next period is expected to start on:</p>
+      <strong id="nextPeriodDate"></strong>
+    </div>
+  </div>
+
+  <script>
+    function predictCycle() {
+      const lastPeriodDate = document.getElementById("lastPeriod").value;
+      const cycleLength = parseInt(document.getElementById("cycleLength").value, 10);
+
+      if (lastPeriodDate && cycleLength) {
+        const lastPeriod = new Date(lastPeriodDate);
+        const nextPeriod = new Date(lastPeriod.getTime() + cycleLength * 24 * 60 * 60 * 1000);
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+
+        document.getElementById("nextPeriodDate").textContent = nextPeriod.toLocaleDateString(undefined, options);
+        document.getElementById("result").style.display = "block";
+      } else {
+        alert("Please fill out all fields correctly!");
+      }
+    }
+  </script>
+</body>
+</html>
