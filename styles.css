@@ -16,15 +16,17 @@ header {
     }
 
 .chatbot, .chatbot button{
-    background: white;
+    background: transparent;
     width:50px;
     position: fixed;
     right: 70px;
     bottom: 30px;
+    height: 40px;
     border-radius: 20px;
-    border-color: #e95d1d;
 }
-
+.chatbot {
+    border: 2px solid #5a5a5a;
+}
 nav {
     display: flex;
     justify-content: center;
@@ -160,8 +162,7 @@ footer {
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
-
-h1, h2 {
+ h2 {
     text-align: center;
     color: #ffffff;
 }
