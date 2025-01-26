@@ -34,7 +34,7 @@ Visual Studio Code
 <p>
 <img src = "homepage.PNG">
 This is the homepage of the web appliaction which has its name and links to other pages.
-<img src = "tracker.PNG">
+<img src = "Tracker.PNG">
 Tracker page collects data regarding the last period date and average cycle length to predict the next period date.
 <img src = "Health.PNG">
 This page provides awareness regarding menstrual cycle, symptoms, nutrition and pain relief.
