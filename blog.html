@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simple Blog Platform</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="style1.css">
 </head>
 <body>
     <header>
-        <h2>Share your Experiences</h2>
+        <h2>"Take a moment now-Its always the right time to learn about your cycle"</h2>
     </header>
 
     <nav>
@@ -17,26 +17,32 @@
         <a href="./Health.html">Health and Wellness</a>
         <a href="./myth.html">Myth Buster</a>
         <a href="./blog.html">Blog</a>
-        
     </nav>
-    
-    <div class="main-content">
-        <div class="card user-story-card">
-            <h2>Share Your Story</h2>
-            <form>
-                <label for="user-name">Your Name</label>
-                <input type="text" id="user-name" placeholder="Enter your name" required>
-                <label for="user-story">Your Story</label>
-                <textarea id="user-story" placeholder="Share your story here..." rows="5" required></textarea>
-                <button type="submit">Submit Story</button>
-            </form>
+
+    <div class="container">
+        <h1>Write Your Blog</h1>
+
+        <!-- Blog Form -->
+        <form id="blogForm">
+            <label for="title">Title:</label>
+            <input type="text" id="title" placeholder="Enter blog title" required>
+
+            <label for="content">Content:</label>
+            <textarea id="content" rows="5" placeholder="Write your blog here..." required></textarea>
+
+            <button type="submit">Submit Story</button>
+        </form>
+
+        <h2>All Blogs</h2>
+        <div id="blogList">
+            <!-- Blogs will be displayed here -->
         </div>
     </div>
-
+   
     <footer>
-        <p>&copy; 2025 Your Blog. All rights reserved.</p>
+        <p>&copy; 2025 Your Company. All rights reserved.</p>
     </footer>
-
+    
     <script>
         // Select DOM elements
 const blogForm = document.getElementById("blogForm");
@@ -113,7 +119,6 @@ blogForm.addEventListener("submit", saveBlog);
 
 // Load blogs on page load
 loadBlogs();
-
     </script>
 </body>
 </html>
