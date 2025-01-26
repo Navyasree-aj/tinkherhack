@@ -7,37 +7,29 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <header>
+        <h2>Share your Experiences</h2>
+    </header>
 
-    <body>
-        <header>
-            <h2>Share your Experiences</h2>
-        </header>
+    <nav>
+        <a href="file:///C:/Users/Admin/Desktop/tink-her-hack/tinkherhack/CycleWise.html">Home</a>
+        <a href="file:///C:/Users/Admin/Desktop/tink-her-hack/tinkherhack/tracker.html">Period Tracker</a>
+        <a href="file:///C:/Users/Admin/Desktop/tink-her-hack/tinkherhack/Health.html">Health and Wellness</a>
+        <a href="file:///C:/Users/Admin/Desktop/tink-her-hack/tinkherhack/myth.html">Myth Buster</a>
+        <a href="file:///C:/Users/Admin/Desktop/tink-her-hack/tinkherhack/blog.html">Blog</a>
+       
+    </nav>
     
-        <nav>
-            <a href="file:///C:/Users/Admin/Desktop/tink-her-hack/tinkherhack/CycleWise.html">Home</a>
-            <a href="file:///C:/Users/Admin/Desktop/tink-her-hack/tinkherhack/tracker.html">Period Tracker</a>
-            <a href="file:///C:/Users/Admin/Desktop/tink-her-hack/tinkherhack/Health.html">Health and Wellness</a>
-            <a href="file:///C:/Users/Admin/Desktop/tink-her-hack/tinkherhack/myth.html">Myth Buster</a>
-            <a href="file:///C:/Users/Admin/Desktop/tink-her-hack/tinkherhack/blog.html">Blog</a>
-           
-        </nav>
-
-    <div class="container">
-
-        <!-- Blog Form -->
-        <form id="blogForm">
-            <label for="title">Title:</label>
-            <input type="text" id="title" placeholder="Enter blog title" required>
-
-            <label for="content">Content:</label>
-            <textarea id="content" rows="5" placeholder="Write your blog here..." required></textarea>
-
-            <button type="submit">Save Blog</button>
-        </form>
-
-        <h2>All Blogs</h2>
-        <div id="blogList">
-            <!-- Blogs will be displayed here -->
+    <div class="main-content">
+        <div class="card user-story-card">
+            <h2>Share Your Story</h2>
+            <form>
+                <label for="user-name">Your Name</label>
+                <input type="text" id="user-name" placeholder="Enter your name" required>
+                <label for="user-story">Your Story</label>
+                <textarea id="user-story" placeholder="Share your story here..." rows="5" required></textarea>
+                <button type="submit">Submit Story</button>
+            </form>
         </div>
     </div>
 

@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Page</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        header {
+            background-color: #e95d1d;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: #333;
+        }
+
+        nav a {
+            color: white;
+            padding: 14px 20px;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        nav a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        .hero {
+            text-align: center;
+            margin: 20px;
+        }
+
+        .chat-container {
+            width: 100%;
+            max-width: 500px;
+            margin: auto;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            background: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .chat-history {
+            padding: 20px;
+            height: 400px;
+            overflow-y: auto;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .message {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+            word-wrap: break-word;
+        }
+
+        .user-message {
+            background-color: #e7f3fe;
+            text-align: right;
+        }
+
+        .bot-message {
+            background-color: #f0f0f0;
+            text-align: left;
+        }
+
+        .input-container {
+            display: flex;
+            padding: 10px;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .inputdata {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-right: 10px;
+            font-size: 16px;
+        }
+
+        .submit {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            background-color: #e95d1d;
+            color: #fff;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+
+        .submit:hover {
+            background-color: #e95d1d;
+        }
+
+        .spinner {
+            display: none;
+            width: 12px;
+            height: 12px;
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid #555;
+            border-radius: 50%;
+            margin-left: 8px;
+            animation: spin 0.5s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        footer {
+            text-align: center;
+            background-color: #333;
+            color: white;
+            padding: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h2>"Take a moment now - It's always the right time to learn about your cycle"</h2>
+    </header>
+
+    <nav>
+        <a href="./CycleWise.html">Home</a>
+        <a href="./tracker.html">Period Tracker</a>
+        <a href="./Health.html">Health and Wellness</a>
+        <a href="./myth.html">Myth Buster</a>
+        <a href="./blog.html">Blog</a>
+    </nav>
+
+
+    <div class="chat-container">
+        <div class="chat-history" id="chatHistory"></div>
+        <div class="input-container">
+            <input type="text" class="inputdata" placeholder="Type your message...">
+            <button type="submit" class="submit">Submit<div class="spinner"></div></button>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Your Company. All rights reserved.</p>
+    </footer>
+
+    <script>
+        console.log("start");
+
+        let conversationHistory = []; // Array to keep track of conversation history
+        let userName = ""; // Variable to store user's name if provided
+
+        const form = document.querySelector(".input-container");
+        const inputField = document.querySelector(".inputdata");
+        const submitButton = document.querySelector(".submit");
+        const spinner = document.querySelector(".spinner");
+        const chatHistory = document.getElementById("chatHistory");
+
+        // Listen for the Enter key to trigger form submission
+        inputField.addEventListener("keydown", function (event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                handleSubmit(event);
+            }
+        });
+
+        submitButton.addEventListener("click", handleSubmit);
+
+        async function handleSubmit(event) {
+            event.preventDefault();
+
+            let input = inputField.value;
+            if (!input) return; // Don't process if input is empty
+
+            // Show loading spinner
+            spinner.style.display = "inline-block";
+
+            // Check if the input contains a name introduction
+            if (input.toLowerCase().includes("my name is ")) {
+                userName = input.split("my name is ")[1].trim(); // Extract the name after "my name is"
+            }
+
+            // Append the user's message to conversation history
+            conversationHistory.push({ role: "user", text: input });
+
+            // Display the user message
+            const userMessage = document.createElement("div");
+            userMessage.classList.add("message", "user-message");
+            userMessage.textContent = input;
+            chatHistory.appendChild(userMessage);
+
+            // Scroll to the latest message
+            chatHistory.scrollTop = chatHistory.scrollHeight;
+
+            // Clear the input field
+            inputField.value = "";
+
+            const apiKey = 'AIzaSyCZ-dsLDmfV8N0qaVMhNkrJhAOmTcy-cvE';
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${apiKey}`;
+
+            // Format the conversation history for API request
+            const data = {
+                contents: conversationHistory.map(message => ({
+                    parts: [{ text: message.text }]
+                }))
+            };
+
+            // Add the user's name to the conversation history if it was provided
+            if (userName) {
+                data.contents.push({
+                    parts: [{ text: `The user's name is ${userName}.` }]
+                });
+            }
+
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                const result = await response.json();
+
+                // Check if response has the expected structure before accessing it
+                let botMessageText = "I'm sorry, I couldn't process your request at the moment.";
+                if (result.candidates && result.candidates[0] && result.candidates[0].content && result.candidates[0].content.parts) {
+                    botMessageText = result.candidates[0].content.parts[0].text;
+                }
+
+                // Append bot's message to conversation history
+                conversationHistory.push({ role: "bot", text: botMessageText });
+
+                // Display the bot message
+                const botMessage = document.createElement("div");
+                botMessage.classList.add("message", "bot-message");
+                botMessage.textContent = botMessageText;
+                chatHistory.appendChild(botMessage);
+
+                console.log(botMessageText);
+
+                // Scroll to the latest message
+                chatHistory.scrollTop = chatHistory.scrollHeight;
+
+            } catch (error) {
+                console.error('Error:', error);
+                const errorMessage = document.createElement("div");
+                errorMessage.classList.add("message", "bot-message");
+                errorMessage.textContent = "Sorry, there was an error processing your request.";
+                chatHistory.appendChild(errorMessage);
+            } finally {
+                // Hide the loading spinner
+                spinner.style.display = "none";
+                console.log("end");
+            }
+        }
+    </script>
+</body>
+</html>
