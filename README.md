@@ -32,7 +32,7 @@ Framework Used:
 Visual Studio Code
 
 <p>
-<img src = "homepage.PNG">
+<img src = "hompage.PNG">
 This is the homepage of the web appliaction which has its name and links to other pages.
 <img src = "Tracker.PNG">
 Tracker page collects data regarding the last period date and average cycle length to predict the next period date.
