@@ -9,7 +9,7 @@ Team Members:
 Member 1: Navyasree A J - TKM COLLEGE OF ENGINEERING
 Member 2: Fathima Fasila M - TKM COLLEGE OF ENGINEERING
 
-Hosted Project Link:<a href="https://tinkherhack-8zbl.vercel.app/"></a>
+Hosted Project Link:<a href="https://tinkherhack-8zbl.vercel.app/">link</a>
 
 Project Description:
 Our project is a web application which helps the user to track period cycle. The main features of this app includes: a period tracker, chatbot, health and wellness information, a myth buster and a blog page where the users can share their experiences. The period tracker helps the user to predict the next period date and also provides menstrual health awareness. The users can also use the chatbot to interact and clear their doubts regarding menstrual cycle. 
