@@ -3,38 +3,125 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog Webpage</title>
+    <title>Simple Blog Platform</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
-        <h2>Share your Experiences</h2>
-    </header>
 
-    <nav>
-        <a href="file:///C:/Users/Admin/Desktop/tink-her-hack/tinkherhack/CycleWise.html">Home</a>
-        <a href="file:///C:/Users/Admin/Desktop/tink-her-hack/tinkherhack/tracker.html">Period Tracker</a>
-        <a href="file:///C:/Users/Admin/Desktop/tink-her-hack/tinkherhack/Health.html">Health and Wellness</a>
-        <a href="file:///C:/Users/Admin/Desktop/tink-her-hack/tinkherhack/myth.html">Myth Buster</a>
-        <a href="file:///C:/Users/Admin/Desktop/tink-her-hack/tinkherhack/blog.html">Blog</a>
-       
-    </nav>
+    <body>
+        <header>
+            <h2>Share your Experiences</h2>
+        </header>
     
-    <div class="main-content">
-        <div class="card user-story-card">
-            <h2>Share Your Story</h2>
-            <form>
-                <label for="user-name">Your Name</label>
-                <input type="text" id="user-name" placeholder="Enter your name" required>
-                <label for="user-story">Your Story</label>
-                <textarea id="user-story" placeholder="Share your story here..." rows="5" required></textarea>
-                <button type="submit">Submit Story</button>
-            </form>
+        <nav>
+            <a href="file:///C:/Users/Admin/Desktop/tink-her-hack/tinkherhack/CycleWise.html">Home</a>
+            <a href="file:///C:/Users/Admin/Desktop/tink-her-hack/tinkherhack/tracker.html">Period Tracker</a>
+            <a href="file:///C:/Users/Admin/Desktop/tink-her-hack/tinkherhack/Health.html">Health and Wellness</a>
+            <a href="file:///C:/Users/Admin/Desktop/tink-her-hack/tinkherhack/myth.html">Myth Buster</a>
+            <a href="file:///C:/Users/Admin/Desktop/tink-her-hack/tinkherhack/blog.html">Blog</a>
+           
+        </nav>
+
+    <div class="container">
+
+        <!-- Blog Form -->
+        <form id="blogForm">
+            <label for="title">Title:</label>
+            <input type="text" id="title" placeholder="Enter blog title" required>
+
+            <label for="content">Content:</label>
+            <textarea id="content" rows="5" placeholder="Write your blog here..." required></textarea>
+
+            <button type="submit">Save Blog</button>
+        </form>
+
+        <h2>All Blogs</h2>
+        <div id="blogList">
+            <!-- Blogs will be displayed here -->
         </div>
     </div>
 
     <footer>
         <p>&copy; 2025 Your Blog. All rights reserved.</p>
     </footer>
+
+    <script>
+        // Select DOM elements
+const blogForm = document.getElementById("blogForm");
+const titleInput = document.getElementById("title");
+const contentInput = document.getElementById("content");
+const blogList = document.getElementById("blogList");
+
+// Function to load blogs from localStorage
+function loadBlogs() {
+    const blogs = JSON.parse(localStorage.getItem("blogs")) || [];
+    blogList.innerHTML = ""; // Clear the blog list
+
+    // Display each blog as a card
+    blogs.forEach((blog, index) => {
+        const blogCard = document.createElement("div");
+        blogCard.classList.add("blog-card");
+
+        const blogTitle = document.createElement("h3");
+        blogTitle.textContent = blog.title;
+
+        const blogContent = document.createElement("p");
+        blogContent.textContent = blog.content;
+
+        // Add delete button
+        const deleteButton = document.createElement("button");
+        deleteButton.textContent = "Delete";
+        deleteButton.style.marginTop = "10px";
+        deleteButton.onclick = () => {
+            deleteBlog(index);
+        };
+
+        blogCard.appendChild(blogTitle);
+        blogCard.appendChild(blogContent);
+        blogCard.appendChild(deleteButton);
+
+        blogList.appendChild(blogCard);
+    });
+}
+
+// Function to save a blog
+function saveBlog(event) {
+    event.preventDefault();
+
+    const title = titleInput.value.trim();
+    const content = contentInput.value.trim();
+
+    if (!title || !content) {
+        alert("Please fill in both the title and content!");
+        return;
+    }
+
+    // Get existing blogs from localStorage
+    const blogs = JSON.parse(localStorage.getItem("blogs")) || [];
+    blogs.push({ title, content }); // Add new blog
+    localStorage.setItem("blogs", JSON.stringify(blogs)); // Save to localStorage
+
+    // Clear form fields
+    titleInput.value = "";
+    contentInput.value = "";
+
+    loadBlogs(); // Refresh blog list
+}
+
+// Function to delete a blog
+function deleteBlog(index) {
+    const blogs = JSON.parse(localStorage.getItem("blogs")) || [];
+    blogs.splice(index, 1); // Remove the blog by index
+    localStorage.setItem("blogs", JSON.stringify(blogs)); // Update localStorage
+    loadBlogs(); // Refresh blog list
+}
+
+// Event listener for form submission
+blogForm.addEventListener("submit", saveBlog);
+
+// Load blogs on page load
+loadBlogs();
+
+    </script>
 </body>
 </html>
